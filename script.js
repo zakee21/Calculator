@@ -22,6 +22,17 @@ const divide = function(a, b) {
 // console.log(divide(6, 7));
 
 
+
+let display = document.getElementById('display');
+let btn = document.getElementById('nine');
+
+function itWorks() {
+    display.innerText = btn.innerText;
+}
+
+btn.addEventListener("click", itWorks);
+
+
 let a
 let op
 let b
