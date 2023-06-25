@@ -26,11 +26,16 @@ const divide = function(a, b) {
 let display = document.getElementById('display');
 let btns = document.querySelectorAll('button');
 for (i of btns) {
-    i.addEventListener("click", 
+    i.addEventListener('click', 
     function () {
         display.innerText = this.innerText;
     });
 }
+
+//Clicking 'c' button clears the display
+document.getElementById('clear').addEventListener('click', function() {
+    display.innerText = '';
+});
 
 
 let a
