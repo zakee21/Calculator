@@ -22,15 +22,15 @@ const divide = function(a, b) {
 // console.log(divide(6, 7));
 
 
-
+//Clicking button changes display to each button's text value
 let display = document.getElementById('display');
-let btn = document.getElementById('nine');
-
-function itWorks() {
-    display.innerText = btn.innerText;
+let btns = document.querySelectorAll('button');
+for (i of btns) {
+    i.addEventListener("click", 
+    function () {
+        display.innerText = this.innerText;
+    });
 }
-
-btn.addEventListener("click", itWorks);
 
 
 let a
