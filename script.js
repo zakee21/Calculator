@@ -46,30 +46,43 @@ document.getElementById('clear').addEventListener('click', function() {
     console.table(displayValues);
 });
 
+// let a = Number(displayValues[0]);
+// let op = displayValues[1];
+// let b = Number(displayValues[2]);
 
+//Clicking the '=' button runs the operate function, this function is used within the operate function
 
-let a = displayValues[0];
-let op = displayValues[1];
-let b = displayValues[2];
+//Self: values for a and b are showing undefined, I think their values are not being passed.
 
-let operate = function (a, op, b) {
-    switch(a, op, b){
+function operate() {
+    let a = Number(displayValues[0]);
+    let op = displayValues[1];
+    let b = Number(displayValues[2]);
+    switch(op) {
         case '+': {
-            let answer = add(a, b);
-            console.log (a, '+', b, '=', answer);
+            display.innerText = add(a, b);
+            displayValues.length = 0;
             break;
         }
         case '-': {
+            display.innerText = subtract(a, b);
+            displayValues.length = 0;
             break;
         }
         case 'x': {
+            display.innerText = multiply(a, b);
+            displayValues.length = 0;
             break;
         }
         case '/': {
+            display.innerText = divide(a, b);
+            displayValues.length = 0;
             break;
         }        
         default: {
-            console.log('ERROR 404');
+            display.innerText = 'ERROR 404!';
+            displayValues.length = 0;
         }
     }
 }
+document.getElementById('operate').addEventListener('click', operate);
