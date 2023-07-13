@@ -1,46 +1,34 @@
-//add
 const add = function(a, b) {
 	return a + b;
 };
-//subtract
 const subtract = function(a, b) {
 	return a - b;
 };
-//multiply
 const multiply = function(a, b) {
     return a * b;
-    //return array.reduce((total, current) => total * current);
   };
-//divide
 const divide = function(a, b) {
     return a / b;
 }
 
-// console.log(add(6, 7));
-// console.log(subtract(6, 7));
-// console.log(multiply(6, 7));
-// console.log(divide(6, 7));
-
-
-//take display values and store them so that they can be used for calculator operations
-//IDEa: maybe can store them in an array: ex: values = [2,+,5]
-    //Might have to first create empty array.
 let displayValues = [];
+let answer;
 
-//Clicking button changes display to each button's text value
+//populate display by clicking number buttons
 let display = document.getElementById('display');
 let numberBtns = document.querySelectorAll('.number');
 for (i of numberBtns) {
-    i.addEventListener('click', 
-    function () {
-        display.innerText = '';
+    i.addEventListener('click', function (numberBtns) {
+        if(display.innerText == answer) {
+            display.innerText = '';
+        }
         display.innerText += this.innerText;
-        //displayValues.push(this.innerText);
         console.table(displayValues);
     });
 }
 
 //pushing operator button stores the previous numbers into the array.
+    //allows user to chain multiple equations
 let operatorBtns = document.querySelectorAll('.operator')
 for (i of operatorBtns) {
     i.addEventListener('click',
@@ -56,39 +44,47 @@ for (i of operatorBtns) {
             switch(op) {
                 case '+': {
                     displayValues.length = 0;
-                    display.innerText = add(a, b);
-                    displayValues.push(add(a, b));
-                    displayValues.push('+');
-                    //display.innerText = add(a, b);
-                    // console.table(displayValues);
-                    // //displayValues.length = 0;
-                    // console.table(displayValues);
-                    // displayValues.push(add(a, b));
-                    // console.table(displayValues);
+                    answer = add(a, b)
+                    display.innerText = answer;
+                    displayValues.push(answer);
+                    displayValues.push(this.innerText);
                     break;
                 }
                 case '-': {
                     displayValues.length = 0;
-                    display.innerText = subtract(a, b);
-                    displayValues.push(subtract(a, b));
-                    displayValues.push('-');
+                    answer = subtract(a, b);
+                    display.innerText = answer;
+                    displayValues.push(answer);
+                    displayValues.push(this.innerText);
                     break;
                 }
                 case 'x': {
-                    display.innerText = multiply(a, b);
                     displayValues.length = 0;
+                    answer = multiply(a, b);
+                    display.innerText = answer;
+                    displayValues.push(answer);
+                    displayValues.push(this.innerText);
                     break;
                 }
                 case '/': {
-                    display.innerText = divide(a, b);
                     displayValues.length = 0;
+                    answer = divide(a, b);
+                    display.innerText = answer;
+                    displayValues.push(answer);
+                    displayValues.push(this.innerText);
                     break;
                 } }
-            // displayValues.length = 0;
-            // display.innerText = add(a, b);
-            // displayValues.push(add(a, b));
-            // displayValues.push('+');
         };
+        //ERROR message if user divides by 0
+        if(op === '/' && (b === 0 || b === '0')) {
+            display.innerText ='LOL CAN\'T DIVIDE BY 0';
+        }
+        //Prevents duplicating final answer in array and
+            //allows user to use displayed number as part of next equation
+        if (displayValues[1] == '=') {
+            displayValues.length = 0;
+        }
+        
         console.table(displayValues);
     })
 }
@@ -100,54 +96,3 @@ document.getElementById('clear').addEventListener('click', function() {
     displayValues.length = 0;
     console.table(displayValues);
 });
-
-//6/30/23: I need to get the numbers to add dynamically as nums are pushed to array
-    //a + b - c - d
-    //(a+b) - c = res, res - d = final answer
-
-//Clicking the '=' button runs the operate function
-function operate() {
-    //UNDO
-    //displayValues.push(display.innerText);
-    let a = Number(displayValues[0]);
-    let op = displayValues[1];
-    let b = Number(displayValues[2]);
-    switch(op) {
-        case '+': {
-            displayValues.length = 0;
-            display.innerText = add(a, b);
-            displayValues.push(add(a, b));
-            displayValues.push('+');
-            //display.innerText = add(a, b);
-            // console.table(displayValues);
-            // //displayValues.length = 0;
-            // console.table(displayValues);
-            // displayValues.push(add(a, b));
-            // console.table(displayValues);
-            break;
-        }
-        case '-': {
-            display.innerText = subtract(a, b);
-            displayValues.length = 0;
-            break;
-        }
-        case 'x': {
-            display.innerText = multiply(a, b);
-            displayValues.length = 0;
-            break;
-        }
-        case '/': {
-            display.innerText = divide(a, b);
-            displayValues.length = 0;
-            break;
-        }        
-        default: {
-            display.innerText = '';
-            console.table(displayValues);
-            displayValues.length = 0;
-            console.table(displayValues);
-        }
-    }
-}
-
-document.getElementById('equals').addEventListener('click', operate);
