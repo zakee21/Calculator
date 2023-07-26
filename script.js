@@ -23,7 +23,6 @@ for (i of numberBtns) {
             display.innerText = '';
         }
         display.innerText += this.innerText;
-        console.table(displayValues);
     });
 }
 
@@ -36,7 +35,6 @@ for (i of operatorBtns) {
         displayValues.push(display.innerText);
         displayValues.push(this.innerText);
         display.innerText = '';
-        console.table(displayValues);
         let a = Number(displayValues[0]);
         let op = displayValues[1];
         let b = Number(displayValues[2]);
@@ -45,7 +43,7 @@ for (i of operatorBtns) {
                 case '+': {
                     displayValues.length = 0;
                     answer = add(a, b)
-                    display.innerText = answer;
+                    display.innerText = Math.round(answer * 1000000)/1000000;
                     displayValues.push(answer);
                     displayValues.push(this.innerText);
                     break;
@@ -53,7 +51,7 @@ for (i of operatorBtns) {
                 case '-': {
                     displayValues.length = 0;
                     answer = subtract(a, b);
-                    display.innerText = answer;
+                    display.innerText = Math.round(answer * 1000000)/1000000;
                     displayValues.push(answer);
                     displayValues.push(this.innerText);
                     break;
@@ -61,7 +59,7 @@ for (i of operatorBtns) {
                 case 'x': {
                     displayValues.length = 0;
                     answer = multiply(a, b);
-                    display.innerText = answer;
+                    display.innerText = Math.round(answer * 1000000)/1000000;
                     displayValues.push(answer);
                     displayValues.push(this.innerText);
                     break;
@@ -69,7 +67,7 @@ for (i of operatorBtns) {
                 case '/': {
                     displayValues.length = 0;
                     answer = divide(a, b);
-                    display.innerText = answer;
+                    display.innerText = Math.round(answer * 1000000)/1000000;
                     displayValues.push(answer);
                     displayValues.push(this.innerText);
                     break;
@@ -84,15 +82,11 @@ for (i of operatorBtns) {
         if (displayValues[1] == '=') {
             displayValues.length = 0;
         }
-        
-        console.table(displayValues);
     })
 }
-
 
 //Clicking 'c' button clears the display and deletes all array elements
 document.getElementById('clear').addEventListener('click', function() {
     display.innerText = '';
     displayValues.length = 0;
-    console.table(displayValues);
 });
